@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "949846055013",
+    "project_id": "recetariosanji",
+    "storage_bucket": "recetariosanji.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:949846055013:android:522a4861450ac924bd4e8c",
+        "android_client_info": {
+          "package_name": "com.antonio.proyecto"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCA4f54gwit7k0-C--jjn2qa-KbsvxS3aE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
