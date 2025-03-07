@@ -6,12 +6,37 @@
     app:startDestination="@id/fragmentHome">
     <fragment
         android:id="@+id/fragmentHome"
-        android:name="com.antonio.proyecto.home.FragmentHome"
+        android:name="com.antonio.proyecto.Fragments.FragmentHome"
         android:label="Home"
         tools:layout="@layout/fragment_home" />
     <fragment
         android:id="@+id/fragmentList"
-        android:name="com.antonio.proyecto.list.FragmentList"
+        android:name="com.antonio.proyecto.Fragments.FragmentList"
         android:label="Lista de recetas"
         tools:layout="@layout/fragment_list" />
+
+    <fragment
+        android:id="@+id/fragmentMyList"
+        android:name="com.antonio.proyecto.Fragments.FragmentMyList"
+        android:label="Mis recetas"
+        tools:layout="@layout/fragment_my_list"
+        />
+    <fragment
+        android:id="@+id/fragmentRecipe"
+        android:name="com.antonio.proyecto.Fragments.FragmentRecipe"
+        android:label="Receta"
+        tools:layout="@layout/fragment_recipe"
+        >
+        <argument
+            android:name="receta"
+            app:argType="com.antonio.proyecto.models.Receta"
+            />
+
+    </fragment>
+    <dialog
+        android:id="@+id/cerrarSesion"
+        android:name="com.antonio.proyecto.dialogues.CerrarSesionDialog"
+        android:label="Cerrar Sesion"
+        tools:layout="@layout/fragment_cerrar_sesion_dialog"
+        />
 </navigation>

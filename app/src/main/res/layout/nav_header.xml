@@ -21,7 +21,7 @@
         android:id="@+id/txt_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Anzzoni"
+        android:text="Sanji Recipes"
         app:layout_constraintStart_toEndOf="@+id/image_logo"
         app:layout_constraintTop_toTopOf="@+id/image_logo" />
 

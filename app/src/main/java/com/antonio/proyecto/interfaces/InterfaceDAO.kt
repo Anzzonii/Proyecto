@@ -4,11 +4,11 @@ import com.antonio.proyecto.models.Receta
 
 interface InterfaceDAO {
 
-    fun getDataReceta(): List<Receta>
+    fun getDataReceta(callback: (List<Receta>) -> Unit)
 
-    fun removeReceta(receta : Receta)
+    suspend fun removeReceta(receta : Receta)
 
-    fun editReceta(recetaModificada: Receta, recetas: MutableList<Receta> ,position:Int)
+    suspend fun editReceta(recetaModificada: Receta)
 
     fun addReceta(receta: Receta, recetas:MutableList<Receta>)
 

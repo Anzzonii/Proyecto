@@ -1,95 +1,198 @@
-<?xml version ="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView
     android:id="@+id/item_receta"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width ="match_parent"
-    android:layout_height ="wrap_content"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_marginHorizontal ="10dp"
-    android:layout_marginVertical ="8dp"
-    app:cardCornerRadius ="30dp"
-    app:cardElevation ="10dp"
-    >
+    android:layout_marginHorizontal="10dp"
+    android:layout_marginVertical="8dp"
+    app:cardCornerRadius="30dp"
+    app:cardElevation="10dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width ="match_parent"
-        android:layout_height ="wrap_content"
-        android:background="@color/LightYellow"
-        >
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/LightYellow">
 
+        <!-- Image Section -->
         <ImageView
             android:id="@+id/img_receta"
-            android:layout_width ="150dp"
-            android:layout_height ="150dp"
-            android:padding="10dp"
-            app:layout_constraintStart_toStartOf ="parent"
-            app:layout_constraintTop_toTopOf ="parent"
-            tools:background ="@color/black" />
+            android:layout_width="120dp"
+            android:layout_height="160dp"
+            android:scaleType="centerCrop"
+            android:clipToOutline="true"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:background="@color/black" />
 
-        <TextView
-            android:id="@+id/txtview_name"
-            android:layout_width ="wrap_content"
-            android:layout_height ="wrap_content"
-            tools:text="Name ver"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:textColor="@color/black"
-            android:layout_marginTop="30dp"
-            app:layout_constraintStart_toEndOf ="@id/img_receta"
-            app:layout_constraintEnd_toEndOf ="parent"
-            app:layout_constraintTop_toTopOf ="parent"/>
-        <TextView
-            android:id="@+id/txtview_autor"
-            android:layout_width ="wrap_content"
-            android:layout_height ="wrap_content"
-            app:layout_constraintStart_toEndOf ="@id/img_receta"
-            app:layout_constraintTop_toBottomOf ="@id/txtview_name"
-            app:layout_constraintEnd_toEndOf ="parent"
-            tools:text="Autor para ver"
-            android:textColor = "@color/purple_700"
-            android:textSize = "18sp"
-            android:layout_marginTop ="15dp"
-            />
-        <TextView
-            android:id="@+id/txtview_level"
-            android:layout_width ="wrap_content"
-            android:layout_height ="wrap_content"
-            app:layout_constraintStart_toEndOf ="@id/img_receta"
-            app:layout_constraintTop_toBottomOf ="@id/txtview_autor"
-            app:layout_constraintEnd_toEndOf ="parent"
-            tools:text="Dificultad para ver"
-            android:textColor = "@color/purple_500"
-            android:textSize = "18sp"
-            />
-
-
+        <!-- Text Section -->
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
+            android:orientation="vertical"
+            app:layout_constraintStart_toEndOf="@id/img_receta"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/action_buttons"
+            android:padding="10dp">
+
+            <TextView
+                android:id="@+id/txtview_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="Nombre"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:layout_marginBottom="8dp" />
+
+            <TextView
+                android:id="@+id/txtview_autor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="Autor"
+                android:textColor="@color/purple_700"
+                android:textSize="14sp"
+                android:layout_marginBottom="4dp" />
+
+            <TextView
+                android:id="@+id/txtview_level"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="Dificultad"
+                android:textColor="@color/purple_500"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <!-- Action Buttons -->
+        <LinearLayout
+            android:id="@+id/action_buttons"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/txtview_level"
-            app:layout_constraintTop_toBottomOf="@id/txtview_level"
-            android:layout_marginLeft="125dp">
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:padding="10dp">
 
             <ImageView
-                android:id="@+id/btn_edit"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:layout_marginStart="50dp"
-                android:background="@drawable/lapiz"
-                />
+                android:id="@+id/btn_view"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/flecha"
+            />
+
 
             <ImageView
                 android:id="@+id/btn_delete"
-                android:layout_width="24dp"
-                android:layout_height="28dp"
-                android:layout_marginLeft="40dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:background="@drawable/papelera"
                 />
-
         </LinearLayout>
 
-    </androidx.constraintlayout.widget.ConstraintLayout >
-</androidx.cardview.widget.CardView >
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>
+
+
+    <!--
+    <?xml version ="1.0" encoding="utf-8"?>
+    <androidx.cardview.widget.CardView
+        android:id="@+id/item_receta"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width ="match_parent"
+        android:layout_height ="wrap_content"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_marginHorizontal ="10dp"
+        android:layout_marginVertical ="8dp"
+        app:cardCornerRadius ="30dp"
+        app:cardElevation ="10dp"
+        >
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width ="match_parent"
+            android:layout_height ="wrap_content"
+            android:background="@color/LightYellow"
+            >
+
+            <ImageView
+                android:id="@+id/img_receta"
+                android:layout_width ="150dp"
+                android:layout_height ="150dp"
+                android:padding="10dp"
+                app:layout_constraintStart_toStartOf ="parent"
+                app:layout_constraintTop_toTopOf ="parent"
+                tools:background ="@color/black" />
+
+            <TextView
+                android:id="@+id/txtview_name"
+                android:layout_width ="wrap_content"
+                android:layout_height ="wrap_content"
+                tools:text="Name ver"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:layout_marginTop="30dp"
+                app:layout_constraintStart_toEndOf ="@id/img_receta"
+                app:layout_constraintEnd_toEndOf ="parent"
+                app:layout_constraintTop_toTopOf ="parent"/>
+            <TextView
+                android:id="@+id/txtview_autor"
+                android:layout_width ="wrap_content"
+                android:layout_height ="wrap_content"
+                app:layout_constraintStart_toEndOf ="@id/img_receta"
+                app:layout_constraintTop_toBottomOf ="@id/txtview_name"
+                app:layout_constraintEnd_toEndOf ="parent"
+                tools:text="Autor para ver"
+                android:textColor = "@color/purple_700"
+                android:textSize = "18sp"
+                android:layout_marginTop ="15dp"
+                />
+            <TextView
+                android:id="@+id/txtview_level"
+                android:layout_width ="wrap_content"
+                android:layout_height ="wrap_content"
+                app:layout_constraintStart_toEndOf ="@id/img_receta"
+                app:layout_constraintTop_toBottomOf ="@id/txtview_autor"
+                app:layout_constraintEnd_toEndOf ="parent"
+                tools:text="Dificultad para ver"
+                android:textColor = "@color/purple_500"
+                android:textSize = "18sp"
+                />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/txtview_level"
+                app:layout_constraintTop_toBottomOf="@id/txtview_level"
+                android:layout_marginLeft="125dp">
+
+                <ImageView
+                    android:id="@+id/btn_edit"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_marginStart="50dp"
+                    android:background="@drawable/lapiz"
+                    />
+
+                <ImageView
+                    android:id="@+id/btn_delete"
+                    android:layout_width="24dp"
+                    android:layout_height="28dp"
+                    android:layout_marginLeft="40dp"
+                    android:background="@drawable/papelera"
+                    />
+
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout >
+    </androidx.cardview.widget.CardView >-->

@@ -7,64 +7,47 @@ import com.antonio.proyecto.dao.DaoRecetas
 import com.antonio.proyecto.dialogues.AddDialog
 import com.antonio.proyecto.dialogues.DeleteDialog
 import com.antonio.proyecto.dialogues.EditDialog
+
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.antonio.proyecto.models.Receta
+import com.antonio.proyecto.object_models.Repository
+import kotlinx.coroutines.launch
 
-class Controller (val context : Context){
-    lateinit var listRecetas : MutableList<Receta>
 
+class Controller : ViewModel() {
+    private val _recetas = MutableLiveData<List<Receta>>()
+    val recetas: LiveData<List<Receta>> get() = _recetas
     init {
-        initdata()
+        obtenerRecetas()
     }
 
-    fun initdata(){
-
-        listRecetas = DaoRecetas.myDao.getDataReceta().toMutableList()
-    }
-
-    fun loggOut(){
-        Toast.makeText(context, "He mostrado los datos en pantalla", Toast.LENGTH_LONG).show()
-        listRecetas.forEach{
-            println(it)
+    // Obtener datos desde Firebase en tiempo real
+    private fun obtenerRecetas() {
+        Repository.getRecetas { receta ->
+            _recetas.postValue(receta)
         }
     }
 
-    fun eliminarReceta(receta: Receta, recetas: MutableList<Receta>, adapter: AdapterReceta){
-
-        val dialog = DeleteDialog()
-        dialog.showConfirmationDialog(
-            context,
-            onConfirm = {
-                DaoRecetas.myDao.removeReceta(receta)
-                val position = recetas.indexOf(receta)
-                recetas.removeAt(position)
-                adapter.notifyItemRemoved(position)
-            },
-            onCancel = {
-
-            }
-        )
+    // Agregar una receta
+    fun addReceta(receta: Receta) {
+        viewModelScope.launch {
+            Repository.addReceta(receta)
+        }
     }
-
-    fun editarReceta(receta :Receta, recetas: MutableList<Receta>, adapter: AdapterReceta){
-        val dialog = EditDialog()
-        dialog.showEditDialog(context, receta,
-            onConfirm = { recetaActualizada ->
-                val position = recetas.indexOf(receta)
-                DaoRecetas.myDao.editReceta(recetaActualizada,recetas, position)
-                adapter.notifyItemChanged(position)
-            }
-        )
+    // Actualizar receta
+    fun updateReceta(receta: Receta) {
+        viewModelScope.launch {
+            Repository.updateReceta(receta)
+        }
     }
+    // Eliminar receta
+    fun deleteReceta(receta: Receta) {
 
-    fun addReceta(recetas: MutableList<Receta>,adapter: AdapterReceta){
-        val dialog = AddDialog()
-        dialog.showAddDialog(context,
-            onConfirm = { nuevaReceta ->
-                DaoRecetas.myDao.addReceta(nuevaReceta, recetas)
-                adapter.notifyItemInserted(recetas.size)
-
-            }
-        )
+        viewModelScope.launch {
+            Repository.deleteReceta(receta.id)
+        }
     }
-
 }

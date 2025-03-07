@@ -1,8 +1,10 @@
 package com.antonio.proyecto
 
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -16,12 +18,14 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.antonio.proyecto.R;
 import com.antonio.proyecto.databinding.ActivityMainBinding
+import com.google.firebase.auth.FirebaseAuth
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var navController: NavController
+    lateinit var navController: NavController
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
+    private lateinit var mediaPlayer: MediaPlayer
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,9 +44,8 @@ class MainActivity : AppCompatActivity() {
 
         val navView = binding.myNavView
 
-
         appBarConfiguration = AppBarConfiguration(
-            setOf(R.id.fragmentHome, R.id.fragmentList), // Destinos principales
+            setOf(R.id.fragmentHome, R.id.fragmentList, R.id.fragmentMyList), // Destinos principales
             binding.main // DrawerLayout
         )
 
@@ -62,6 +65,23 @@ class MainActivity : AppCompatActivity() {
          */
 
         navView.setupWithNavController(navController)
+
+        //Cojo el navHeader del navView y en el apartado del email pongo el email con el que estamos logeados
+        //en este momento
+        val headerView = navView.getHeaderView(0)
+
+        val userEmail = headerView.findViewById<TextView>(R.id.txt_email)
+        userEmail.text = FirebaseAuth.getInstance().currentUser?.email.toString()
+
+        //Media player aqui para que solo se ejecute al iniciar la aplicacion y logearse o estar logeado
+        mediaPlayer = MediaPlayer.create(this, R.raw.sonido)
+        mediaPlayer.start()
+
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        mediaPlayer.release()
     }
 
     override fun onSupportNavigateUp(): Boolean{
@@ -88,5 +108,7 @@ class MainActivity : AppCompatActivity() {
             else -> super.onOptionsItemSelected(item)
         }
     }
+
+
 
 }

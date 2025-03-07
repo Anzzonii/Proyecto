@@ -1,6 +1,7 @@
 package com.antonio.proyecto.Login
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -8,6 +9,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 
 import android.content.Intent
+import android.content.SharedPreferences
 import android.util.Log
 import android.util.Patterns
 import android.widget.EditText
@@ -22,10 +24,17 @@ import com.google.firebase.auth.FirebaseAuth
 
 class LoginActivity : AppCompatActivity() {
 
+    object Global{
+        var preferencias_compartidas="sharedpreferences"
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_login)
+
+        verificar_sesion_abierta()
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
@@ -68,7 +77,6 @@ class LoginActivity : AppCompatActivity() {
                 Toast.makeText(this, "Introduce un correo", Toast.LENGTH_LONG).show()
             }
         }
-
     }
 
     @SuppressLint("SuspiciousIndentation")
@@ -84,6 +92,10 @@ class LoginActivity : AppCompatActivity() {
                             intent.putExtra("Correo", correo)
                             intent.putExtra("Proveedor", "Usuario/Contraseña")
                             startActivity(intent);
+
+                            //Guarda el inicio de sesion
+                            guardar_sesion(task.result.user?.email.toString(), "Usuario/Contraseña")
+
                         }else{
                             Toast.makeText(this, "Debes verificar tu correo antes de iniciar sesión.", Toast.LENGTH_LONG).show()
                             auth.signOut()
@@ -104,6 +116,28 @@ class LoginActivity : AppCompatActivity() {
                     Toast.makeText(this, "Correo no existente", Toast.LENGTH_LONG).show()
                 }
             }
+    }
+
+    fun verificar_sesion_abierta(){
+        var sesion_abierta:SharedPreferences=this.getSharedPreferences(Global.preferencias_compartidas, Context.MODE_PRIVATE)
+
+        var correo = sesion_abierta.getString("correo", null)
+        var proveedor = sesion_abierta.getString("Proveedor", null)
+        if(correo!=null && proveedor!=null){
+            val intent = Intent(this, MainActivity::class.java)
+            intent.putExtra("Correo", correo)
+            intent.putExtra("Proveedor", proveedor)
+            startActivity(intent);
+        }
+    }
+
+    fun guardar_sesion(correo: String, proveedor: String){
+        var guardar_sesion:SharedPreferences.Editor=this.getSharedPreferences(Global.preferencias_compartidas, Context.MODE_PRIVATE).edit()
+        guardar_sesion.putString("correo", correo)
+        guardar_sesion.putString("Proveedor", proveedor)
+        guardar_sesion.apply()
+        guardar_sesion.commit()
+
     }
 
 }

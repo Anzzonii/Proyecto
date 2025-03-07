@@ -2,10 +2,11 @@ package com.antonio.proyecto.dialogues
 
 import android.content.Context
 import androidx.appcompat.app.AlertDialog
+import com.antonio.proyecto.adapter.AdapterReceta
 
 class DeleteDialog {
     fun showConfirmationDialog(
-        context : Context,
+        context: Context,
         onConfirm: () -> Unit,
         onCancel: () -> Unit = {}
         ){

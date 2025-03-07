@@ -40,4 +40,18 @@
         android:hint="Enlace Imagen"
         />
 
+    <EditText
+        android:id="@+id/add_ingredientes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Ingredientes"
+        />
+
+    <EditText
+        android:id="@+id/add_elaboracion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Elaboración"
+        />
+
 </LinearLayout>

@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn = "navigation_view">
 
-    <!-- checkableBehavior = "single", hace que el elemento se clicke como si fuera un RadioGroup. -->
     <group android:checkableBehavior="single">
         <item android:title="Home"
 
@@ -13,12 +12,15 @@
         <item android:title="Lista de recetas"
             android:id="@+id/fragmentList"
             />
-            <!--android:icon=""-->
+        <item android:title="Mis recetas"
+            android:id="@+id/fragmentMyList"
+            />
 
     </group>
     <item android:title="" >
         <menu >
-            <item android:title="Cerrar sesion" />
+            <item android:title="Cerrar sesion"
+                android:id="@+id/cerrarSesion"/>
         </menu>
     </item>
 </menu>

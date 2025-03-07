@@ -13,14 +13,19 @@ class DaoRecetas private constructor():InterfaceDAO {
     }
 
 
-    override fun getDataReceta(): List<Receta> = Repository.listReceta
-
-    override fun removeReceta(receta : Receta) {
-        Repository.listReceta.remove(receta)
+    override fun getDataReceta(callback: (List<Receta>) -> Unit) {
+        Repository.getRecetas { recetas ->
+            // Devuelve las recetas a través del callback
+            callback(recetas)
+        }
     }
 
-    override fun editReceta(recetaModificada: Receta, recetas:MutableList<Receta>, position:Int) {
-        recetas[position] = recetaModificada
+    override suspend fun removeReceta(receta : Receta) {
+        Repository.deleteReceta(receta.id)
+    }
+
+    override suspend fun editReceta(recetaModificada: Receta) {
+        Repository.updateReceta(recetaModificada)
     }
 
     override fun addReceta(receta: Receta, recetas: MutableList<Receta>) {
