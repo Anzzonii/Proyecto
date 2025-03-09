@@ -32,21 +32,26 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
 
+        //Muestra el view
         binding = ActivityMainBinding.inflate(layoutInflater)
 
         setContentView(binding.root)
 
+        //Coge la toolbar del binding
         val toolbar = binding.appBarLayoutDrawer.toolbar
 
+        //cogemos el navHost y al navController le asignamos el controller de este
         val navHost = supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment
         navController = navHost.navController
 
 
+        //Coge el navView del binding
         val navView = binding.myNavView
 
+        //Configuramos los layouts que tendran el menu en la toolbar
         appBarConfiguration = AppBarConfiguration(
-            setOf(R.id.fragmentHome, R.id.fragmentList, R.id.fragmentMyList), // Destinos principales
-            binding.main // DrawerLayout
+            setOf(R.id.fragmentHome, R.id.fragmentList, R.id.fragmentMyList),
+            binding.main
         )
 
         //insertamos la toolbar
@@ -56,14 +61,12 @@ class MainActivity : AppCompatActivity() {
         vincula el navController con el toolbar (titulo + hambuerguesa/retroceso)
         De esa forma, se puede navegar con la toolbar.
          */
-
         setupActionBarWithNavController(navController, appBarConfiguration)
 
         /*
         vincula el menú lateral del drawer con el navController según. el nav_graph
         De esa forma, se puede navegar con la barra lateral izquierda.
          */
-
         navView.setupWithNavController(navController)
 
         //Cojo el navHeader del navView y en el apartado del email pongo el email con el que estamos logeados
@@ -79,15 +82,18 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    //Metodo necesario para el mediaPlayer
     override fun onDestroy() {
         super.onDestroy()
         mediaPlayer.release()
     }
 
+    //Configuración del navController en el menu
     override fun onSupportNavigateUp(): Boolean{
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
 
+    //Creación de las opciones de la toolbar
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.toolbar_op, menu)
         return true

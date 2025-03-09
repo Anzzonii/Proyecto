@@ -20,12 +20,13 @@ class AddDialog {
     ) {
 
 
-
+                //Infla la vista del dialog
                 val builder = AlertDialog.Builder(context)
                 val inflater = LayoutInflater.from(context)
                 val view = inflater.inflate(R.layout.dialog_add_receta, null)
 
 
+                //Guarda todas los campos que se rellenaran en el dialog
                 val addNombre = view.findViewById<EditText>(R.id.add_name)
                 val addAutor = view.findViewById<EditText>(R.id.add_autor)
                 val addLevel = view.findViewById<EditText>(R.id.add_level)
@@ -35,7 +36,7 @@ class AddDialog {
 
 
 
-
+                //Crea la vista y en caso de confirmación crea una nueva receta y la pasa en la funcion onConfirm
                 builder.setView(view)
                     .setTitle("Añadir receta")
                     .setPositiveButton("Guardar") { _, _ ->
@@ -53,6 +54,7 @@ class AddDialog {
                     }
                     .setNegativeButton("Cancelar", null)
 
+                //Muestra el dialog
                 val dialog = builder.create()
                 dialog.show()
 

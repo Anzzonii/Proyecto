@@ -21,6 +21,7 @@ class FragmentRecipe : Fragment() {
     private lateinit var binding: FragmentRecipeBinding
     private lateinit var receta: Receta
 
+    //Creacion de la vista usando binding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

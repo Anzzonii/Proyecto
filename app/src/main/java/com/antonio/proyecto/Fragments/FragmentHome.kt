@@ -17,6 +17,7 @@ class FragmentHome : Fragment() {
 
     lateinit var bindingFragment: FragmentHomeBinding
 
+    //Creamos la vista usando binding
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -29,6 +30,7 @@ class FragmentHome : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        //Colocamos el video en el VideoView del layout del menu home
         val videoView = view.findViewById<VideoView>(R.id.videoView)
         videoView?.let {
             val videoPath = "android.resource://" + requireContext().packageName + "/" + R.raw.video
@@ -45,6 +47,7 @@ class FragmentHome : Fragment() {
             Log.e("MainMenuFragment", "Error: videoView es null")
         }
 
+        //Cargar la imagen usando Glide
         val imageView = view.findViewById<ImageView>(R.id.imageView)
 
         // Es el mismo logo que el drawable, al poner un link tambien funciona pero no encuentro la foto en png

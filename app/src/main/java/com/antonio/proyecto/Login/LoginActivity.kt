@@ -24,6 +24,7 @@ import com.google.firebase.auth.FirebaseAuth
 
 class LoginActivity : AppCompatActivity() {
 
+    //Creacion de un objeto Global que contiene las sharedPreferences
     object Global{
         var preferencias_compartidas="sharedpreferences"
     }
@@ -33,6 +34,7 @@ class LoginActivity : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(R.layout.activity_login)
 
+        //Comprueba si hay una sesión abierta para acceder o no al programa
         verificar_sesion_abierta()
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
@@ -41,12 +43,14 @@ class LoginActivity : AppCompatActivity() {
             insets
         }
 
+        //Declaración de los botones y los TextViews
         val tRestaurarPass = findViewById<TextView>(R.id.tRestaurarPass)
         val btnLogin = findViewById<AppCompatButton>(R.id.btnLogin)
         var correo = findViewById<TextInputLayout>(R.id.user)
         var pass = findViewById<TextInputLayout>(R.id.password)
         val btnRegister = findViewById<AppCompatButton>(R.id.btnRegister)
 
+        //Listener del boton de login
         btnLogin.setOnClickListener {
             if(pass.editText?.text.toString()!=""){
                 if(correo.editText?.text.toString()!="" && Patterns.EMAIL_ADDRESS.matcher(correo.editText?.text.toString()).matches()){
@@ -62,10 +66,12 @@ class LoginActivity : AppCompatActivity() {
 
         }
 
+        //Listener del boton de registrarse que te lleva al dialog de registro
         btnRegister.setOnClickListener {
             RegisterDialog().show(supportFragmentManager, null)
         }
 
+        //Listener para el boton de resetear la contraseña
         tRestaurarPass.setOnClickListener {
             if(correo.editText?.text.toString()!=""){
                 if(Patterns.EMAIL_ADDRESS.matcher(correo.editText?.text.toString()).matches()){
@@ -79,6 +85,7 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
+    //Función que realiza el login a la aplicación
     @SuppressLint("SuspiciousIndentation")
     fun login_firebase(correo: String, pass: String){
         val auth = FirebaseAuth.getInstance()
@@ -88,6 +95,7 @@ class LoginActivity : AppCompatActivity() {
                     if (task.isSuccessful) {
                         val user = auth.currentUser
                         if(user != null && user.isEmailVerified) {
+                            //Si todo es correcto entra a la app
                             val intent = Intent(this, MainActivity::class.java)
                             intent.putExtra("Correo", correo)
                             intent.putExtra("Proveedor", "Usuario/Contraseña")
@@ -106,6 +114,7 @@ class LoginActivity : AppCompatActivity() {
                 }
     }
 
+    //Función que manda el email de cambio de contraseña
     fun resetPassword(email: String) {
         val auth = FirebaseAuth.getInstance()
         auth.sendPasswordResetEmail(email)
@@ -118,6 +127,8 @@ class LoginActivity : AppCompatActivity() {
             }
     }
 
+
+    //Funcion que comprueba si hay una sesion abierta para entrar al programa o no
     fun verificar_sesion_abierta(){
         var sesion_abierta:SharedPreferences=this.getSharedPreferences(Global.preferencias_compartidas, Context.MODE_PRIVATE)
 
@@ -131,6 +142,7 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
+    //Función que guarda la sesion para no tener que logearse la proxima vez que abra la app
     fun guardar_sesion(correo: String, proveedor: String){
         var guardar_sesion:SharedPreferences.Editor=this.getSharedPreferences(Global.preferencias_compartidas, Context.MODE_PRIVATE).edit()
         guardar_sesion.putString("correo", correo)

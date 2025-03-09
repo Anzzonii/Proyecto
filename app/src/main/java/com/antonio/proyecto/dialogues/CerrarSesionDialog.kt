@@ -28,19 +28,21 @@ class CerrarSesionDialog : DialogFragment() {
         savedInstanceState: Bundle?
     ): View? {
 
+        //Crea la vista que va tener el dialog
         var view:View = inflater.inflate(R.layout.fragment_cerrar_sesion_dialog, container, false)
 
+        //Guarda los botones que hay en la vista
         val btnAccept = view.findViewById<AppCompatButton>(R.id.btnAccept)
         val btnCancel = view.findViewById<AppCompatButton>(R.id.btnCancel)
 
+        //En caso de aceptar ejecutara las funciones cerrarSesion y borrarSesion y cerrara el programa
         btnAccept.setOnClickListener{
             cerrarSesion()
             borrar_sesion()
             requireActivity().finishAffinity()
-            /*val intent = Intent(requireActivity(), LoginActivity::class.java)
-            startActivity(intent);*/
         }
 
+        //Sale de la app en caso de cancelar
         btnCancel.setOnClickListener{
             dismissNow()
         }
@@ -54,15 +56,16 @@ class CerrarSesionDialog : DialogFragment() {
         dialog?.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
     }
 
+    //Cierra la sesión que hay actualmente en la aplicación
     fun cerrarSesion(){
         FirebaseAuth.getInstance().signOut()
     }
 
+    //Borra la sesión de las SharedPreferences para que al iniciar la app no vuelva a entrar con la cuenta guardada
      fun borrar_sesion(){
         var borrar_sesion: SharedPreferences.Editor=requireContext().getSharedPreferences(Global.preferencias_compartidas, Context.MODE_PRIVATE).edit()
         borrar_sesion.clear()
         borrar_sesion.apply()
         borrar_sesion.commit()
-
      }
 }

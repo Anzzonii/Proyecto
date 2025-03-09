@@ -19,30 +19,36 @@ import com.antonio.proyecto.models.Receta
 import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
 
+//Variable controller que que manejara las operaciones de las recetas
 lateinit var controller: Controller
 
+//Lista mutable para al macenar las recetas que se van a mostrar en el RecyclerView
 private val recetasList : MutableList<Receta> = mutableListOf()
 
-
+//Adaptador para el RecyclerView, recibe un controlador y para las recetas y un NavController
 class AdapterReceta(
     val controllerList: Controller,
+
+    //Controlador para la navegación entre fragmentos
     private val navController: NavController
 
     ) : RecyclerView.Adapter<AdapterReceta.RecetaViewHolder>() {
 
+    //Infla el layout de cada item del RecyclerView y guarda el controlador recibido en el adapter
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecetaViewHolder {
 
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_receta, parent, false)
-
         controller = controllerList
-
         return RecetaViewHolder(view)
     }
 
+    //Asocia los datos de cada receta a las vistas correspondientes en el item
     override fun onBindViewHolder(holder: RecetaViewHolder, position: Int) {
 
+        //Obtiene el correo del usuario actual autenticado en Firebase
         val usuarioActual = FirebaseAuth.getInstance().currentUser?.email.toString()
 
+        //Coge la receta actual a partir de la posicion
         val receta = recetasList[position]
 
 
@@ -54,7 +60,7 @@ class AdapterReceta(
 
 
 
-        //Asignar al card un listener para ver la receta
+        //Asignar al card un listener para ver los detalles de la receta
         holder.card.setOnClickListener{
             //Creo un contenedor con los datos de la receta que voy a pasar a los detalles de esta
             val bundle = android.os.Bundle().apply {
@@ -72,7 +78,6 @@ class AdapterReceta(
                 DeleteDialog().showConfirmationDialog(
                     holder.itemView.context,
                     onConfirm = {
-                        println("AAAAAAAAAAAAAAAAAAA"+receta.id)
                         controller.deleteReceta(receta)
                     }
                 )
@@ -89,11 +94,13 @@ class AdapterReceta(
 
     }
 
+    //Devuelve el número total de recetas que hay en la lista
     override fun getItemCount(): Int {
         return recetasList.size
     }
 
 
+    //Actualiza la lista de recetas mostradas en el RecyclerView
     fun submitList(lista: List<Receta>?) {
 
         recetasList.clear()

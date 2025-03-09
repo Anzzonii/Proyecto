@@ -16,10 +16,12 @@ import com.antonio.proyecto.models.Receta
 import com.antonio.proyecto.object_models.Repository
 import kotlinx.coroutines.launch
 
-
+//Clase controller que extiende de ViewModel para gestionar la lógica de la aplicación
 class Controller : ViewModel() {
     private val _recetas = MutableLiveData<List<Receta>>()
     val recetas: LiveData<List<Receta>> get() = _recetas
+
+    //Al iniciar el controller se ejecuta obtenerRecetas para devolver las recetas actuales en esta
     init {
         obtenerRecetas()
     }

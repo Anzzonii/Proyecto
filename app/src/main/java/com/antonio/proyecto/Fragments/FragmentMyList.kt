@@ -26,6 +26,7 @@ class FragmentMyList : Fragment() {
     private val controller: Controller by viewModels()
     private lateinit var adapterReceta: AdapterReceta
 
+    //Creación de la vista usando binding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

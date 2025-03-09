@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.appcompat.app.AlertDialog
 import com.antonio.proyecto.adapter.AdapterReceta
 
+//Muestra el dialog para borrar, en caso de pulsar confirmar lo borra y canclear no hace nada
 class DeleteDialog {
     fun showConfirmationDialog(
         context: Context,

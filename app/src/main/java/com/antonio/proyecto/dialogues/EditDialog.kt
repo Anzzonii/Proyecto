@@ -16,10 +16,12 @@ class EditDialog {
         onConfirm:(Receta) -> Unit
     ){
 
+        //Crea el view del dialog
         val builder = AlertDialog.Builder(context)
         val inflater = LayoutInflater.from(context)
         val view = inflater.inflate(R.layout.dialog_edit_receta, null)
 
+        //Guarda los EditText en los que vamos a modificar la receta
         val nombreEditText = view.findViewById<EditText>(R.id.edit_name)
         val autorEditText = view.findViewById<EditText>(R.id.edit_autor)
         val levelEditText = view.findViewById<EditText>(R.id.edit_level)
@@ -27,6 +29,7 @@ class EditDialog {
         val ingredientesEditText = view.findViewById<EditText>(R.id.edit_ingredientes)
         val elaboracionEditText = view.findViewById<EditText>(R.id.edit_elaboracion)
 
+        //Le añadimos los anteriores valores que tenia la receta
         nombreEditText.setText(receta.name)
         autorEditText.setText(receta.autor)
         levelEditText.setText(receta.level)
@@ -34,6 +37,7 @@ class EditDialog {
         ingredientesEditText.setText(receta.ingredientes)
         elaboracionEditText.setText(receta.elaboracion)
 
+        //Si confirma crea una nueva receta con los nuevos valores y la id de la que estamos editando y la actualiza
         builder.setView(view)
             .setTitle("Editar receta")
             .setPositiveButton("Guardar"){_, _ ->
